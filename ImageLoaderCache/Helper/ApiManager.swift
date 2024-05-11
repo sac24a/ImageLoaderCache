@@ -52,4 +52,4 @@ enum NetworkError: Error {
 
 struct ApiUrls  {
     static let fetchImages = "https://acharyaprashant.org/api/v2/content/misc/media-coverages?limit=100"
-} 
+}

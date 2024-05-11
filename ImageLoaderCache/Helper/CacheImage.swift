@@ -36,4 +36,4 @@ class ImageCache {
     func save(image: UIImage, forKey key: String) {
         cache.setObject(image, forKey: key as NSString)
     }
-} 
+}

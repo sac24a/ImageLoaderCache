@@ -11,4 +11,4 @@ class ImageCell: UICollectionViewCell {
     @IBOutlet weak var imageWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak var imageHeightContraint: NSLayoutConstraint!
     @IBOutlet weak var cellImage: UIImageView!
-} 
+}

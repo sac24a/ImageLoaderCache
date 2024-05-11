@@ -23,4 +23,4 @@ class ImageViewModel {
         }
         return model ?? nil
     }
-} 
+}
