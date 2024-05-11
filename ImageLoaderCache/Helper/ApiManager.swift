@@ -2,7 +2,7 @@
 //  ApiManager.swift
 //  ImageLoaderCache
 //
-//  Created by Extreme Agile on 11/05/24.
+//  Created by Sachin Kanojia on 11/05/24.
 //
 
 import Foundation
@@ -16,7 +16,6 @@ class ApiManager {
             let data = try await callApi(url: url, httpMethod: .get)
             return data
         } catch let error {
-            print(error)
             switch error {
             case NetworkError.invalidResponse(let title, let message):
                 throw NetworkError.invalidResponse(title,message)
@@ -27,21 +26,14 @@ class ApiManager {
     }
     
     private func callApi(url: URL, httpMethod: HTTPMethod) async throws -> Data {
+        
         let request = NSMutableURLRequest(url: url)
         request.httpMethod = httpMethod.rawValue
-//        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        print(url)
-        print(request)
+        
         let (data, response) = try await URLSession.shared.data(for: request as URLRequest)
-        var results : NSDictionary?
-        do {
-            try results = JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions(rawValue: 0)) as? NSDictionary
-            print(results)
-        }  catch let error {
-            throw NetworkError.invalidResponse("title", error.localizedDescription)
-        }
+        
         guard let httpResponse = response as? HTTPURLResponse,
-              httpResponse.statusCode == 200 || httpResponse.statusCode == 201 else {
+              httpResponse.statusCode == 200 else {
             let errorData = try JSONDecoder().decode(ApiError.self, from: data)
             throw NetworkError.invalidResponse(errorData.message, errorData.data ?? "")
         }
@@ -60,4 +52,4 @@ enum NetworkError: Error {
 
 struct ApiUrls  {
     static let fetchImages = "https://acharyaprashant.org/api/v2/content/misc/media-coverages?limit=100"
-}
+} 
